@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/jquery-1.11.3.js"></script>
+		<link rel="stylesheet" href="css/index.css" />
+		<link rel="stylesheet" href="css/zzmx.css" />
+	</head>
+
+	<body>
+		<div class="line_wrap">
+			<label style="height: 30px;line-height: 30px;">类型：</label>
+			<div class="nice-select" name="nice-select" style="height: 28px;">
+				<input type="text" value="全部">
+				<ul>
+					<li data-value="1">全部</li>
+					<li data-value="2">转账给上级</li>
+					<li data-value="2">转账给下级</li>
+					<li data-value="3">从上级接收转账</li>
+					<li data-value="4">从下级接收转账</li>
+				</ul>
+			</div>
+			
+		<!--下拉列表-->
+		<script type="text/javascript" src="js/jquery.js"></script>
+	<script>
+
+	
+		$('[name="nice-select"]').click(function(e){
+		    $(this).find('ul').hide();
+		    $(this).find('ul').show();
+			e.stopPropagation();
+		});
+		$('[name="nice-select"] li').bind({
+			click:function(e){
+				var val = $(this).text();
+				$(this).parents('[name="nice-select"]').find('input').val(val);
+				$('[name="nice-select"] ul').hide();
+				e.stopPropagation();
+			}
+			
+		})
+		$(document).click(function(){
+			$('[name="nice-select"] ul').hide();
+		});
+		
+//		$( "div.test" ).bind({
+//click: function() {
+//  $( this ).addClass( "active" );
+//},
+//mouseenter: function() {
+//  $( this ).addClass( "inside" );
+//},
+//mouseleave: function() {
+//  $( this ).removeClass( "inside" );
+//}
+//});
+	</script>
+	</body>
+
+</html>

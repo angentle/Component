@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<title>美化下拉框</title>
+	<!--<link rel="stylesheet" href="css/cui.css" />-->
+	<style>
+	*{margin: 0;padding: 0;}
+	.line_wrap{width: 900px;margin: 100px auto;}
+	.line_wrap label,.line_wrap div{float: left;height:30px;line-height: 30px;display: inline;}
+	
+	.nice-select{
+	width: 100px;
+	border-radius: 3px;
+	padding: 0 10px;
+	height: 30px;
+	border: 1px solid #E0E0E0;
+	position: relative;
+	background: #fff url(images/a2.jpg) no-repeat right center;
+  	box-shadow: 0 -1px 1px rgba(0, 0, 0, 0.1);
+}
+	.nice-select input{display: block;width: 100%;height: 30px;line-height: 38px \9;border: 0;background: none;border-radius:10px;}
+	.nice-select ul{
+		width: 100%;
+		display: none;
+		position: absolute;
+		left: -1px;
+		top: 38px;
+		overflow: hidden;
+		background-color: #fff;
+		overflow-y: auto;
+		border: 1px solid #E0E0E0;
+		/*border-top: 0;*/
+		border-radius: 3px;
+		/*z-index: 9999;*/
+	}
+		.nice-select ul li{height: 30px;line-height: 30px;overflow: hidden;cursor: pointer;padding:0 10px;list-style: none;font-size: 13px;font-weight: normal;}
+		.nice-select ul li.on{background-color: #e0e0e0;}
+	</style>
+</head>
+<body>
+
+	<div class="line_wrap">
+		<label>相关链接11：</label>
+		<div class="nice-select" name="nice-select">
+			<input type="text" value="相关链接" >
+			<ul>
+				<li data-value="1">相关链接1</li>
+				<li data-value="2">相关链接2</li>
+				<li data-value="3">相关链接3</li>
+				<li data-value="4">相关链接4</li>
+			</ul>
+		</div>
+		
+		
+		<label>相关链接22：</label>
+		<div class="nice-select" name="nice-select">
+			<input type="text" value="相关链接" >
+			<ul>
+				<li data-value="1">相关链接1</li>
+				<li data-value="2">相关链接2</li>
+				<li data-value="3">相关链接3</li>
+				<li data-value="4">相关链接4</li>
+			</ul>
+		</div>
+		
+		<label>相关链接33：</label>
+		<div class="nice-select" name="nice-select">
+			<input type="text" value="相关链接" >
+			<ul>
+				<li data-value="1">相关链接1</li>
+				<li data-value="2">相关链接2</li>
+				<li data-value="3">相关链接3</li>
+				<li data-value="4">相关链接4</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script>
+
+	
+		$('[name="nice-select"]').click(function(e){
+		    $('[name="nice-select"]').find('ul').hide();
+		    $(this).find('ul').show();
+			e.stopPropagation();
+		});
+		$('[name="nice-select"] li').hover(function(e){
+			$(this).toggleClass('on');
+			e.stopPropagation();
+		});
+		$('[name="nice-select"] li').click(function(e){
+			var val = $(this).text();
+			$(this).parents('[name="nice-select"]').find('input').val(val);
+			$('[name="nice-select"] ul').hide();
+			e.stopPropagation();
+		});
+		$(document).click(function(){
+			$('[name="nice-select"] ul').hide();
+		});
+	</script>
+	
+</body>
+</html>
