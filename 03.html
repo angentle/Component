@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>基本布局</title>
+		<link rel="stylesheet" href="css/swiper-3.4.2.min.css" />
+		<style type="text/css">
+			.swiper-container {
+			    width: 600px;
+			    height: 300px;
+			    border: 10px solid #000;
+			}  
+			.swiper-slide{
+				font-size: 50px;
+			}
+			.swiper-slide:nth-of-type(1){
+				background: #007AFF;
+			}
+			.swiper-slide:nth-of-type(2){
+				background: #444;
+			}
+			.swiper-slide:nth-of-type(3){
+				background: #643;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body>
+		
+		<div class="swiper-container">
+		    <div class="swiper-wrapper">
+		        <div class="swiper-slide">Slide 1</div>
+		        <div class="swiper-slide">Slide 2</div>
+		        <div class="swiper-slide">Slide 3</div>
+		    </div>
+		   
+		 <div class="swiper-scrollbar"></div>-->
+		</div>
+
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/swiper-3.4.2.jquery.min.js" type="text/javascript" />
+	 <script src="js/swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			     window.onload = function() {
+
+
+  			var mySwiper = new Swiper ('.swiper-container', {
+		    direction: 'horizontal',//设置滑动方向，vertical垂直滑动
+//			touchRatio:0.5,//触摸距离与slide滑动距离的比率
+//			onlyExternal:true,//值为true时，slide无法拖动，
+//			followFinger:false,//如设置为false，拖动slide时它不会动，当你释放时slide才会切换。当手指抬起才能移动
+//			longSwipesMs:1000, //定义longSwipesMs
+//			
+//			longSwipes:false ,//设置为false时，进行长时间长距离的拖动无法触发Swiper。
+//			longSwipesRatio:0.5,
+			touchAngle:10,//允许触发拖动的角度值。默认45度，即使触摸方向不是完全水平也能拖动slide
+		  })   
+		  }
+  </script>
+</body>    
+		</script>
+	
+	</body>
+
+</html>
