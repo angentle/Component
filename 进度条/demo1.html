@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--
+	作者：270357051@qq.com
+	时间：2017-10-29
+	描述：  https://icons8.com/preloaders/ 进度条网站
+	课程名： 网页加载进度条误区
+	
+	反面教材 有弊端：
+	当我们的内容已经在本地有缓存了 使用这种固定时间显示的方法 将会拖慢速度
+	jq： append fadeOut setInterval
+--> 
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.loading{
+				width:100%;
+				height: 100%;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 100;
+				background: #FFFF00;
+			}
+			.pic{
+				width: 64px;
+				height: 64px;
+				border: 1px solid red;
+				background: url(img/35.gif);
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				right: 0;
+				left: 0;
+				margin: auto;
+			}
+		</style>
+		<script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				
+				var loading='<div class="loading">   <div class="pic"></div>   </div>';
+				$("body").append(loading);
+				
+				setInterval(function(){
+					$(".loading").fadeOut();//隐藏
+				},3000)
+			})
+		</script>
+	</head>
+	<body style="width: 1000px;">
+		<!--<div class="loading">
+			<div class="pic"></div>
+		</div>-->
+		<img src="http://image.tianjimedia.com/imagelist/2009/286/gre3yr4a5z4u.jpg" alt="" />
+		<img src="http://img0.imgtn.bdimg.com/it/u=1677352010,3327455678&fm=11&gp=0.jpg" alt="" />
+		<img src="http://img3.imgtn.bdimg.com/it/u=1541194656,956048393&fm=214&gp=0.jpg" alt="" />
+	</body>
+</html>
