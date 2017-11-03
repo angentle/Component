@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--
+        	作者：270357051@qq.com
+        	时间：2017-11-03
+        	描述：例子中的图片还不够大 无序加载的效果不够明显
+        -->
+		<meta charset="UTF-8">
+		<title>图片预加载之无序加载</title>
+		<style type="text/css">
+			a{
+				text-decoration: none;
+			}
+			.box{
+				text-align: center;
+			}
+			.tbn{
+				display: inline-block;
+				height: 30px;
+				line-height: 30px;
+				border: 1px solid #ccc;
+				background: #fff;
+				padding: 0 10px;
+				margin-right: 50px;
+				color: #333;
+			}
+			.btn:hover{
+				background: #eee;
+			}
+		</style>
+	</head>
+	<body>
+			<div class="box">
+				<img id="img" width="1200"  src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509687677356&di=81f8ff5a4944e63d1c1efdea0c3c3722&imgtype=0&src=http%3A%2F%2Fimg2.3lian.com%2F2014%2Ff4%2F184%2Fd%2F118.jpg" />
+				<p>
+					<a href="javascript:;" class="btn" data-control="prev">上一页</a>
+					<a href="javascript:;" class="btn" data-control="next">下一页</a>
+				</p>
+			</div>
+	<script src="../js/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var imgs=[
+			'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509687677355&di=de5f92dc7bef716a51744990dbfb231a&imgtype=0&src=http%3A%2F%2Fpic.jj20.com%2Fup%2Fallimg%2F911%2F010516130411%2F160105130411-11.jpg',
+		'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509687677355&di=0603e5ad3256806ab1cc510cee8ef974&imgtype=0&src=http%3A%2F%2Fimg2.3lian.com%2F2014%2Ff4%2F25%2Fd%2F97.jpg',
+		'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509687677354&di=806e3380af44d2533d41a440fc834660&imgtype=0&src=http%3A%2F%2Fimg1.3lian.com%2Fimg13%2Fc3%2F37%2Fd%2F37.jpg',
+		'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509687677351&di=4ea66f1c365d4abfa686ac3d35bbc669&imgtype=0&src=http%3A%2F%2Fpic.jj20.com%2Fup%2Fallimg%2F811%2F0QG4150121%2F140QG50121-3.jpg',
+		'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509687677351&di=6bf1dca0a3650afc3cfea96e9c03d5c8&imgtype=0&src=http%3A%2F%2Fimg2.3lian.com%2F2014%2Ff4%2F25%2Fd%2F91.jpg'
+			]
+			
+			var index=0,
+				len=imgs.length;
+				console.log(len)
+				$(".btn").on('click',function(){
+					if('prev'===$(this).data('control')){//上一张
+						index=Math.max(0,--index);
+					}else{//下一张
+						index=Math.min(len-1,++index)
+					}
+					document.title=(index+1)+'/'+len;
+					$('#img').attr('src',imgs[index])
+					
+				})
+				
+
+		</script>
+
+	</body>
+</html>
