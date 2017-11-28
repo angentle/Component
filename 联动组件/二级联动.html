@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
+<html>  
+  <head>  
+    <meta charset="utf-8" />
+      
+    <title>My JSP 'submenu.jsp' starting page</title>  
+      
+    <meta http-equiv="pragma" content="no-cache">  
+    <meta http-equiv="cache-control" content="no-cache">  
+    <meta http-equiv="expires" content="0">      
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">  
+    <meta http-equiv="description" content="This is my page">  
+    <!-- 
+    <link rel="stylesheet" type="text/css" href="styles.css"> 
+    -->  
+    <script type="text/javascript">  
+    //城市  
+    var city = ['请选择','北京','天津','上海','重庆'];  
+    //地区  
+    var district = [[],  
+                    ['东城','西城','朝阳','海淀'],  
+                    ['河东','河西','河北','南开'],  
+                    ['黄埔','徐汇','长宁','静安'],  
+                    ['渝北','渝中','江北','江津']];  
+    window.onload=function(){  
+        createCity();     
+        document.getElementById("city").onchange= createDistrict;  
+    };  
+    function createCity(){  
+        //获得1级菜单select  
+        var ci = document.getElementById("city");  
+        //为1级菜单select添加option  
+        for(var i in city){  
+            var op = new Option(city[i],city[i]);  
+            ci.options.add(op);  
+        }  
+    }  
+    function createDistrict(){  
+        //获取当前选中的一级菜单的选项的下标  
+        var index = document.getElementById("city").selectedIndex;  
+        //获得2级菜单select  
+        var di = document.getElementById("district");  
+        //清空二级菜单选项  
+        di.options.length=0;  
+        //为2级菜单select添加option  
+        for(var i in district[index]){  
+            var op = new Option(district[index][i],district[index][i]);  
+            di.options.add(op);  
+        }  
+    }  
+      
+    </script>  
+  </head>  
+    
+  <body>  
+  <p>请选择所述地区：</p>  
+    <select id="city"></select>  
+    <select id="district"></select>  
+  </body>  
+</html>  
