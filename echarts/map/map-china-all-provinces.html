@@ -16,23 +16,19 @@
 			<script type="text/javascript">
 				// 基于准备好的dom，初始化echarts实例
 				var myChart = echarts.init(document.getElementById('china'));
-
 				$.getJSON('../data-1491917776060-Sku0i8qpx.json', function(weiboData) {
-
 					weiboData = weiboData.map(function(serieData, idx) {
 						var px = serieData[0] / 1000;
 						var py = serieData[1] / 1000;
 						var res = [
 							[px, py]
 						];
-
 						for(var i = 2; i < serieData.length; i += 2) {
 							var dx = serieData[i] / 1000;
 							var dy = serieData[i + 1] / 1000;
 							var x = px + dx;
 							var y = py + dy;
 							res.push([x.toFixed(2), y.toFixed(2), 1]);
-
 							px = x;
 							py = y;
 						}
@@ -154,7 +150,6 @@
 						'青岛': [120.4651, 36.3373],
 						'韶关': [113.7964, 24.7028],
 					};
-
 					var BJData = [
 						[{
 							name: '北京'
@@ -217,11 +212,8 @@
 							value: 10
 						}]
 					];
-
 //					var planePath = 'path://M1705.06,1311.313v-89.894l-319.9-221.799l0.073-208.063c0.521-84.662-26.629-121.796-63.961-121.491c-37.332-0.305-64.482,36.829-63.961,121.491l0.073,208.063l-319.9,221.799v89.254l330.343-157.288l12.238,241.308l-134.449,92.931l0.531,42.034l175.125-42.917l175.125,42.917l0.531-42.034l-134.449-92.931l12.238-241.308L1111.06,1318.313z';
-
 					// var ppp2='image://http://127.0.0.1:8020/sportsItem/img/runstory/shoes.png';
-
 					var color = ['#fff', '#fff', '#fff'];
 					var series = [{
 						name: ' Top10',
@@ -241,7 +233,6 @@
 								curveness: 0.2
 							}
 						},
-
 						data: [
 							[{
 								name: 'ii',
@@ -562,7 +553,6 @@
 								value: [127.9688, 45.368, 80]
 							}
 						]
-
 					}, {
 						name: '弱',
 						type: 'scatterGL',
@@ -597,7 +587,6 @@
 						},
 						data: weiboData[2]
 					}];
-
 					option = {
 						//  backgroundColor: '#404a59',
 						//  title : {
