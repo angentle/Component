@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+		<title>效果展示-数据统计平台</title>
+
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+	</head>
+
+	<body>
+
+		<div class="bike-chart" id="chart_2013_map">
+
+		</div>
+
+		<script language="javascript" type="text/javascript" src="../../../js/jquery.min.js"></script>
+		<script src="http://gallery.echartsjs.com/dep/echarts/latest/echarts.min.js"></script>
+		<script src="http://echarts.baidu.com/resource/echarts-gl-latest/dist/echarts-gl.min.js"></script>
+		<script src="../js/world.js"></script>
+		<script type="text/javascript">
+			$("#chart_2013_map").width("100%");
+			$("#chart_2013_map").height("800px");
+
+			var canvas = document.createElement('canvas');
+			var mapChart = echarts.init(canvas, null, {
+				width: 4096,
+				height: 2048
+			});
+			//			var mapChart = echarts.init(document.getElementById('chart_2013_map'));
+			$.getJSON('../../data-1491917776060-Sku0i8qpx.json', function(weiboData) {
+
+					weiboData = weiboData.map(function(serieData, idx) {
+						var px = serieData[0] / 1000;
+						var py = serieData[1] / 1000;
+						var res = [
+							[px, py]
+						];
+
+						for(var i = 2; i < serieData.length; i += 2) {
+							var dx = serieData[i] / 1000;
+							var dy = serieData[i + 1] / 1000;
+							var x = px + dx;
+							var y = py + dy;
+							res.push([x.toFixed(2), y.toFixed(2), 1]);
+
+							px = x;
+							py = y;
+						}
+						return res;
+					});
+			mapChart.setOption({
+				backgroundColor: 'rgb(3, 2, 36)',
+				geo: {
+					map: 'world',
+					// 绘制完整尺寸的 echarts 实例
+					top: 0,
+					left: 0,
+					right: 0,
+					bottom: 0,
+					boundingCoords: [
+						[-180, 90],
+						[180, -90]
+					],
+					itemStyle: {
+						normal: {
+							areaColor: '#131738',
+							borderWidth: 1,
+							borderColor: '#131738'
+						},
+						emphasis: {
+							areaColor: 'rgba(19, 23, 56, 0.8)',
+							label: {
+								show: true,
+								textStyle: {
+									color: '#fff',
+									fontSize: 12,
+									fontWeight: 200
+								}
+							},
+						}
+					}
+				},
+				series: [
+				{
+					type: 'effectScatter',
+					coordinateSystem: 'geo',
+					zlevel: 12,
+					rippleEffect: {
+						brushType: 'stroke'
+					},
+					label: {
+						normal: {
+							show: true,
+							position: 'right',
+							formatter: '{b}'
+						}
+					},
+					symbolSize: 10,
+					itemStyle: {
+						normal: {
+							color:'#fff8e7',
+	                        borderWidth:1,
+	                        borderColor:'#fff8e7'
+						}
+					},
+					data: [{
+							name: "上海市",
+							value: [121.4648, 31.2891, 80]
+						}, {
+							name: "云南省",
+							value: [102.9199, 25.4663, 800]
+						}, {
+							name: "内蒙古自治区",
+							value: [111.4124, 40.4901, 80]
+						}, {
+							name: "北京市",
+							value: [116.4551, 40.2539, 80]
+						}, {
+							name: "吉林省",
+							value: [125.8154, 44.2584, 80]
+						}, {
+							name: "江苏省",
+							coord: [118.8062, 31.9208, 80]
+						}
+
+					]
+
+				},{
+					name: ' Top10',
+						type: 'lines',
+						zlevel: 2,
+						effect: {
+							show: false,
+							period: 6,
+							trailLength: 0,
+//							symbol: planePath,
+							symbolSize: 4,
+							
+						},
+						lineStyle: {
+							normal: {
+								color: '#D2BB87',
+								width: 1.5,
+								opacity: 0.4,
+								curveness: 0.5
+							}
+						},
+						data: [
+							[{
+								name: "江苏省",
+								coord: [118.8062, 31.9208]
+							}, {
+								name: "上海市",
+								coord: [121.4648, 31.2891]
+							}],
+							[{
+								name: "江苏省",
+								coord: [118.8062, 31.9208]
+							}, {
+								name: "云南省",
+								coord: [102.9199, 25.4663]
+							}],
+							[{
+								name: "江苏省",
+								coord: [118.8062, 31.9208]
+							}, {
+								name: "北京市",
+								coord: [116.4551, 40.2539]
+							}]
+							]
+				},
+
+						{
+							name: '弱',
+							type: 'scatterGL',
+							coordinateSystem: 'geo',
+							symbolSize: .1,
+							itemStyle: {
+								shadowBlur: 2,
+								shadowColor: 'rgba(249, 236, 159, 0.1)',
+								color: 'rgba(249, 236, 159, 0.1)'
+							},
+							data: weiboData[0]
+						}, {
+							name: '中',
+							type: 'scatterGL',
+							coordinateSystem: 'geo',
+							symbolSize: .1,
+							itemStyle: {
+								shadowBlur: 2,
+								shadowColor: 'rgba(249, 236, 159, 0.3)',
+								color: 'rgba(249, 236, 159, 0.3)'
+							},
+							data: weiboData[1]
+						}, {
+							name: '强',
+							type: 'scatterGL',
+							coordinateSystem: 'geo',
+							symbolSize: .5,
+							itemStyle: {
+								shadowBlur: 2,
+								shadowColor: 'rgba(249, 236, 159, 0.8)',
+								color: 'rgba(249, 236, 159, 0.8)'
+							},
+							data: weiboData[2]
+						}
+				],//series end
+				animationDelayUpdate: function(idx) {
+				return  1700;
+			}
+			});
+			var myChart2013 = echarts.init(document.getElementById('chart_2013_map'));
+			option2013 = {
+				backgroundColor: '#eee',
+				globe: {
+					baseTexture: mapChart,
+					shading:'color'
+				},
+				
+			};
+			myChart2013.setOption(option2013);
+			});
+		</script>
+
+	</body>
+
+</html>
