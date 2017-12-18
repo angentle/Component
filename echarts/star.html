@@ -1,0 +1,82 @@
+<!DOCTYPE html>  
+<html>  
+    <head>  
+        <meta charset="UTF-8">  
+        <title>HelloThreeJS</title>  
+       <script src="http://www.5iweb.com.cn/resource/5iweb2016110704/js/three.min.js"></script> 
+        <script type="text/javascript">  
+             
+           //设置Three.js渲染器  
+            var renderer;  
+            function initThree(){  
+                width = document.getElementById('canvas3d').clientWidth;   //获取画布的宽  
+                height = document.getElementById('canvas3d').clientHeight; //获取画布的高  
+                renderer = new THREE.WebGLRenderer({antialias:true});    //生成渲染器对象，锯齿效果设置为有效  
+                renderer.setSize(width,height);    //设置渲染器的高宽  
+                  
+                document.getElementById('canvas3d').appendChild(renderer.domElement); //追加canvas元素到canvas3d元素中  
+                renderer.setClearColorHex(0xFFFFFF,1.0); //设置canvas背景色  
+            }  
+              
+            //设置相机  
+            var camera;  
+            function initCamera(){  
+                camera = new THREE.PerspectiveCamera(45,width/height,1,5000);    
+                //设置相机的坐标  
+                camera.position.x = 0;  
+                camera.position.y = 50;  
+                camera.position.z = 100;  
+                  
+                camera.up.x = 0;  
+                camera.up.y = 1;  
+                camera.up.z = 0;  
+                camera.lookAt({x:0,y:0,z:0}); //设置视野的中心坐标  
+            }  
+              
+            //设置场景  
+            var scene;  
+            function initScene(){  
+                scene = new THREE.Scene();  
+            }  
+              
+            //设置光源  
+            var light;  
+            function initLight(){  
+                light = new THREE.DirectionalLight(0xff0000,1.0,0); //设置平行光源  
+                light.position.set(200,200,200);    //设置光源向量  
+                scene.add(light);   //追加光源到场景  
+            }  
+              
+            //设置物体  
+            var sphere;  
+            function initObject(){  
+                sphere = new THREE.Mesh(new THREE.SphereGeometry(20,20),new THREE.MeshLambertMaterial({color:0xff0000})); //材质设定  
+                scene.add(sphere);  
+                sphere.position.set(0,0,0);  
+            }  
+              
+            //执行  
+            function threeExcute(){  
+                initThree();  
+                initCamera();  
+                initScene();  
+                initLight();  
+                initObject();  
+                renderer.clear();  
+                renderer.render(scene,camera);  
+            }  
+        </script>  
+        <style type="text/css">  
+            div#canvas3d{  
+                border:none;  
+                cursor:move;  
+                width:1400px;  
+                height:600px;  
+                background-color:#EEEEEE;  
+            }     
+        </style>  
+    </head>  
+    <body onload='threeExcute();'>  
+        <div id="canvas3d"></div>  
+    </body>  
+</html>  
