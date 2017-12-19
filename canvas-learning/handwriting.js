@@ -1,5 +1,7 @@
-var canvasWidth=800
+var canvasWidth=Math.min(800, $(window).width()-20)
 var canvasHeight = canvasWidth
+
+var strokeColor="black"
 var isMouseDown =false //鼠标是否按下
 var lastLoc={ x:0,y:0}
 var lastTimeStamp =0
@@ -11,6 +13,19 @@ var context=canvas.getContext("2d");
 canvas.width= canvasWidth
 canvas.height= canvasHeight
 drawGrid()
+$("#controller").css("width",canvasWidth)
+
+$("#clear-btn").click(function(e){
+	context.clearRect(0,0,canvasWidth,canvasHeight)//清空画布上的所有内容
+	drawGrid()
+})
+$(".color-btn").click(
+	function(e){
+		$(".color-btn").removeClass("color-btn-select")
+		$(this).addClass("color-btn-select")
+		strokeColor=$(this).css("background-color")
+	}
+)
 //document.onmousedown = function(e){
 //	alert(e.clientX + "," + e.clientY)
 //}  //测试用的
@@ -19,29 +34,18 @@ drawGrid()
 //屏幕坐标y= y-canvas.top
 //canvas.getBoundingClientRect() 可以取得 canvas距离上边缘以及左边缘的距离
 
-canvas.onmousedown=function(e){//鼠标摁下
-	e.preventDefault()//阻止默认事件响应 键盘操作 以及 移动设配操作时
+
+function beginStroke(point){
 	isMouseDown =true
-	console.log("onmousedown")
-	lastLoc =windowToCanvas(e.clientX,e.clientY)
+	lastLoc =windowToCanvas(point.x,point.y)
 	//alert(loc.x+","+loc.y)
 	lastTimeStamp =new Date().getTime()
 }
-canvas.onmouseup=function(e){//鼠标抬起
-	e.preventDefault()
-	isMouseDown =false
-	console.log("onmouseup")
+function endStorke(){
+	isMouseDown=false
 }
-canvas.onmouseout =function(e){//鼠标离开画布
-	e.preventDefault()
-	isMouseDown =false
-	console.log("onmouseout")
-}
-canvas.onmousemove =function(e){//鼠标在区域中移动
-	e.preventDefault();
-	if(isMouseDown){
-		//draw
-		var curLoc =windowToCanvas(e.clientX,e.clientY) 
+function moveStorke(point){
+		var curLoc =windowToCanvas(point.x,point.y) 
 		var curTimeStamp= new Date().getTime()
 		var s=calcDistance(curLoc,lastLoc)
 		var t=curTimeStamp-lastTimeStamp
@@ -51,7 +55,8 @@ canvas.onmousemove =function(e){//鼠标在区域中移动
 		context.moveTo(lastLoc.x,lastLoc.y)
 		context.lineTo(curLoc.x,curLoc.y)
 		
-		context.strokeStyle="black"
+		context.strokeStyle=strokeColor
+		//"black"
 		context.lineWidth=lineWidth
 		context.lineCap="round" //防止字体出现锯齿
 		context.lineJoin="round" //线条衔接更加自然
@@ -60,20 +65,57 @@ canvas.onmousemove =function(e){//鼠标在区域中移动
 		lastLoc=curLoc;
 		lastTimeStamp=curTimeStamp
 		lastLineWidth=lineWidth
-	//		console.log("onmousemove")
-
+}
+//pc端的控制
+canvas.onmousedown=function(e){//鼠标摁下
+	e.preventDefault()//阻止默认事件响应 键盘操作 以及 移动设配操作时
+	beginStroke({x:e.clientX,y:e.clientY})
+}
+canvas.onmouseup=function(e){//鼠标抬起
+	e.preventDefault()
+	endStorke()
+}
+canvas.onmouseout =function(e){//鼠标离开画布
+	e.preventDefault()
+	endStorke()
+}
+canvas.onmousemove =function(e){//鼠标在区域中移动
+	e.preventDefault();
+	if(isMouseDown){
+		moveStorke({x:e.clientX,y:e.clientY})
 	}
 }
+canvas.addEventListener('touchstart',function(e){
+	e.preventDefault();
+	touch =e.touches[0] //用户可能多点触控，这个只取第一个点
+	beginStroke({x:touch.pageX,y:touch.pageY})
+})
+canvas.addEventListener('touchmove',function(e){
+	e.preventDefault();
+	touch =e.touches[0] //用户可能多点触控，这个只取第一个点
+	if(isMouseDown){
+		moveStorke({x:touch.pageX,y:touch.pageY})
+	}
+})
+canvas.addEventListener('touchend',function(e){
+	e.preventDefault();
+	endStorke()
+})
+
+var maxLineWidth =30
+var minLineWidth =1
+var maxStrokeV =10
+var minStrokeV =0.1
 function calLineWidth(t,s){
 	var v=s/t
 	var resultLineWidth
 	
-	if(v<=0.1)
-		resultLineWidth =30
-	else if(v >= 10)
-		resultLineWidth =1
+	if(v<=minStrokeV)
+		resultLineWidth =maxLineWidth
+	else if(v >= maxStrokeV)
+		resultLineWidth =minLineWidth
 	else
-		resultLineWidth =30 -(v-0.1)/(10-0.1)*(30-1)
+		resultLineWidth =maxLineWidth -(v-minStrokeV)/(maxStrokeV-minStrokeV)*(maxLineWidth-minLineWidth)
 	if(lastLineWidth == -1)
 	return resultLineWidth
 		return lastLineWidth*2/3+resultLineWidth*1/3

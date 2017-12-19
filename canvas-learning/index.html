@@ -4,10 +4,22 @@
 		<meta charset="UTF-8">
 		<title>canvas-学写一个字</title>
 		<link rel="stylesheet" type="text/css" href="handwriting.css"/>
-		
+		<meta name="viewport" content="width=device-width,height=device-height,
+			initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
 	</head>
 	<body>
 		<canvas id="canvas" width="" height=""></canvas>
+		<div id="controller">
+			<div id="black-btn" class="color-btn color-btn-select"></div>
+			<div id="blue-btn" class="color-btn"></div>
+			<div id="green-btn" class="color-btn"></div>
+			<div id="red-btn" class="color-btn"></div>
+			<div id="orange-btn" class="color-btn"></div>
+			<div id="yellow-btn" class="color-btn"></div>
+			
+			<div id="clear-btn" class="op-btn">清除</div>
+			<div class="clearfix"></div>
+		</div>
 		<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="handwriting.js" type="text/javascript" charset="utf-8"></script>
 	</body>
