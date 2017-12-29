@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			body{
+				margin: 0;
+				padding: 0;
+				background: black;
+			}
+			#myContent{
+				height: 200px;
+				color: #1da1cb;
+				padding: 20px;
+				line-height: 35px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="myContent"></div>
+		<div id="contentToWrite" style="display: none;"> 
+		Login:username<br/>
+		password:**********<br />
+		Access is ganted <br />
+		</div>
+		<script src="../echarts/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(function(){
+				var text =$("#contentToWrite").html();
+				var index =1;
+				var textleng=text.length;
+				var textTrang ="";
+				var textsetInt=null;
+				textsetInt =setInterval(function(){
+					if(index==textleng){
+						clearInterval(textsetInt)
+					}else{
+						if(text.charAt(index)=="<"){
+							index +=4;
+							textTrang +="<br>";
+						}
+						textTrang+=text.charAt(index);
+//						$("#myContent").html(textTrang+'<span class="xia">_</span>');
+						$("#myContent").html(textTrang);
+						index++;
+					}
+//					setInterval(function(){
+//						$(".xia").toggle();
+//					},100)
+				},100)
+			})
+		</script>
+	</body>
+</html>
