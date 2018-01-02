@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+//			const 既可以声明变量  也可以声明常量 一旦声明，常量的值就不能改变。
+//			const PI =Math.PI;
+//			PI =23 //会报错
+
+//			const应用场景:当引用第三方库的时声明的变量，用const来声明可以避免不小心重命名而导致出现bug：
+//			onst monent = require('moment')
+
+class Animal{
+	constructor(){
+		this.type ='animal';
+		
+		this.sddd="aaaa";
+	}
+	says(say){
+		 console.log(this.type +" "+ this.sddd+' says ' + say)
+	}
+}
+
+let animal =new Animal()
+animal.says('hello')
+
+class Cat extends Animal{
+	constructor(){
+		super()
+		this.type='cat'
+	}
+}	
+
+let cat =new Cat()
+cat.says('hello1')
+		</script>
+	</body>
+</html>
+	

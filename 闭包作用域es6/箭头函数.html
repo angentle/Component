@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			
+//	var aaa=	function(i){ return i + 1; } //ES5
+//	console.log(aaa(2))
+
+//	var aaa2=	(i) => i + 1 //ES6
+//	console.log(aaa2(5))
+
+//var xxx=function(x, y) { //es5
+//  x++;
+//  y--;
+//  return x + y;
+//}
+//console.log(xxx(1,5))
+
+//var xxx2=(x, y) => {x++; y--; return x+y} //es6
+//console.log(xxx2(1,6))
+
+//错误this 示范 ，setTimeout 的this指向全局的
+class Animal{
+	constructor(){
+		this.type='animal'
+	}
+//	says(say){
+//		setTimeout(function(){
+//			console.log(this.type +' says '+say);
+//		},1000)//解决方法2
+//	}
+//	解决方法1
+//	says(say){
+//		var _this=this;
+//		setTimeout(function(){
+//			console.log(_this.type +' says '+say);
+//		},1000)
+//	}
+//	解决方法2
+//	says(say){
+//		setTimeout(function(){
+//			console.log(this.type +' says '+say);
+//		}.bind(this),1000)
+//	}
+	//使用箭头函数解决
+	says(say){
+		setTimeout( ()=>{
+			console.log(this.type +' says '+say);
+		},1000)
+	}
+	
+}
+var animal =new Animal()
+animal.says('h1')
+		
+		
+		
+		</script>
+	</body>
+</html>
